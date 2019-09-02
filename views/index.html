@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{{title}}</title>
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+    <script src="/static/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+    <head class="navbar navbar-static-top">
+        <div class="container">
+            <div class="navbar-header">
+                <p>Choosing seats system</p>
+            </div>
+        </div>
+        {% block main %} {% endblock %}
+        <footer style="background-color:#ddd; padding: 20px 0;">
+            <div class="container">
+                <p>This website is created by <a target="_blank" href="http://stefaniezhao.xyz/">赵婉淇</a>.</p>
+                <p>Code licensed <a target="_blank" href="https://github.com/stefanieZhao77/choose_postion/blob/master/LICENSE">Apache</a>.</p>
+            </div>
+        </footer>
+    </head>
+</body>
+</html>
