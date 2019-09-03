@@ -1,5 +1,7 @@
 var query_list = async (ctx, next) => {
-    
+    ctx.render('select.html', {
+        title: 'Select'
+    });
 };
 
 var submit_choice = async (ctx, next) => {
