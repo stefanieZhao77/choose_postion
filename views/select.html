@@ -1,23 +1,27 @@
 {% extends "index.html" %} {% block main %}
-<div class="container">
-    <div class="row">
-        <div class="col-md-10">
-            <div class="col-md-2">
-                <select name="first_choice" id="first_choice">
+<form action="/submit" method="post">
+<div class="container mt-xl-5">
+    <div class="row">          
+            <div class="col-md-4">
+                <select class="custom-select" name="area" id="area">
                     <option value="a1">A1</option>
                 </select>
             </div>
-            <div class="col-md-2">
-                <select name="second_choice" id="second_choice">
+            <div class="col-md-4">
+                <select class="custom-select" name="seat" id="seat">
                     <option value="a2">A2</option>
                 </select>
             </div>
-            <div class="col-md-2">
-                    <select name="third_choice" id="third_choice">
-                        <option value="a3">A3</option>
-                    </select>
+            <div class="col-md-4">
+                    {% if button_state == 'normal' %}
+                    <button type="button" class="btn btn-info">Submit</button>
+                    {% elif button_state == 'success' %}
+                    <button type="button" class="btn btn-success">Success</button>
+                    {% elif button_state == 'fail' %}
+                    <button type="button" class="btn btn-danger">Fail</button>
+                    {% endif %}
             </div>
         </div>
-    </div>
 </div>
+</form>
 {% endblock %}
