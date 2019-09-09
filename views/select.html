@@ -1,27 +1,61 @@
 {% extends "index.html" %} {% block main %}
-<form action="/submit" method="post">
-<div class="container mt-xl-5">
-    <div class="row">          
-            <div class="col-md-4">
-                <select class="custom-select" name="area" id="area">
-                    <option value="a1">A1</option>
+<div class="container">
+    <form action="/submit" method="post">
+        <div class="form-row">
+            <div class="form-group col-md-3">
+                <label for="inputname">Name</label>
+                <input type="text" class="form-control" name="name" id="name">
+            </div>
+            <div class="form-group col-md-3">
+                <label for="area">Room</label>
+                <select class="form-control" name="room" id="room">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    
                 </select>
             </div>
-            <div class="col-md-4">
-                <select class="custom-select" name="seat" id="seat">
-                    <option value="a2">A2</option>
+            <div class="form-group col-md-3">
+                <label for="area">Area</label>
+                <select class="form-control" name="area" id="area">
+                    {% for area in areas %}
+                    <option value="{{area.areaId}}">{{ area.area_name }}</option>
+                    {% endfor %}
                 </select>
             </div>
-            <div class="col-md-4">
-                    {% if button_state == 'normal' %}
-                    <button type="button" class="btn btn-info">Submit</button>
-                    {% elif button_state == 'success' %}
-                    <button type="button" class="btn btn-success">Success</button>
-                    {% elif button_state == 'fail' %}
-                    <button type="button" class="btn btn-danger">Fail</button>
-                    {% endif %}
+            <div class="form-group col-md-3">
+                <label for="seat">Seat</label>
+                <select class="form-control" name="seat" id="seat">
+                    {% for seat in seats %}                     
+                    <option value="{{seat.areaId}}">{{ seat.seat }}</option>
+                    {% endfor %}
+                </select>
             </div>
         </div>
+        {% if button_state == 'normal' %}
+        <button type="submit" class="btn btn-info">Submit</button>
+        {% elif button_state == 'success' %}
+        <button type="button" class="btn btn-success">Success</button>
+        <span>You have chosen the seat successfully!</span>
+        {% elif button_state == 'fail' %}
+        <button type="button" class="btn btn-danger">Fail</button>
+        <span>Sorry, the seat has been occupied or the system has some problems.</span>
+        {% endif %}
+    </form>
 </div>
-</form>
+<script>
+        let roomSelect = document.getElementById('room');
+        let areaSelect = document.getElementById('area');
+        roomSelect.addEventListener("change",function(e) {
+            let roomval = roomSelect.options[roomSelect.selectedIndex].value;
+            let areaval = areaSelect.options[areaSelect.selectedIndex].value;   
+            window.location.replace("/"+areaval+'/'+roomval);
+        });
+        areaSelect.addEventListener("change",function(e) {
+            let roomval = roomSelect.options[roomSelect.selectedIndex].value;
+            let areaval = areaSelect.options[areaSelect.selectedIndex].value;   
+            window.location.replace("/"+areaval+'/'+roomval);
+        });
+        
+</script>
 {% endblock %}
