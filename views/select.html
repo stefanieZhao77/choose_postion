@@ -9,17 +9,30 @@
             <div class="form-group col-md-3">
                 <label for="area">Room</label>
                 <select class="form-control" name="room" id="room">
-                    <option value="1">1</option>
+                    {% if 1 == selected_room %}
+                    <option value="1" selected>1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
-                    
+                    {% elif 2 == selected_room%}
+                    <option value="1" >1</option>
+                    <option value="2" selected>2</option>
+                    <option value="3">3</option>
+                    {% elif 3 == selected_room %}
+                    <option value="1" >1</option>
+                    <option value="2">2</option>
+                    <option value="3" selected>3</option>
+                    {% endif %}                   
                 </select>
             </div>
             <div class="form-group col-md-3">
                 <label for="area">Area</label>
                 <select class="form-control" name="area" id="area">
                     {% for area in areas %}
+                    {% if area.areaId == selected_area %}
+                    <option value="{{area.areaId}}" selected>{{ area.area_name }}</option>
+                    {% else %}
                     <option value="{{area.areaId}}">{{ area.area_name }}</option>
+                    {% endif %}
                     {% endfor %}
                 </select>
             </div>

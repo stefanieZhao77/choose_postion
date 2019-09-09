@@ -7,16 +7,16 @@ let
 var query_list = async (ctx, next) => {
     var seats;
     if(ctx.params.area && ctx.params.room){
-        seats = await seat.findAll({
-            attributes:['seat', 'areaId','seatId']
-        },
+        seats = await seat.findAll(
         {
             where: {
-                seatId : ctx.params.room,
-                areaId : ctx.params.area,
+                seatId : parseInt(ctx.params.room),
+                areaId : parseInt(ctx.params.area),
             }
-        }
-        );
+        });
+    }else{
+        seats = await seat.findAll({
+            });
     }; 
     var areas = await area.findAll({
         attributes:['area_name', 'areaId']
@@ -26,6 +26,8 @@ var query_list = async (ctx, next) => {
         button_state:'normal',
         areas: areas,
         seats: seats,
+        selected_area:ctx.params.area,
+        selected_room:ctx.params.room,
     });
 };
 
