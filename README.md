@@ -1,39 +1,17 @@
 # choose_postion
 
 This a system for choosing position.
+### install and start
+1. npm install
+2. node app.js
 
-### Demand
-1. two ways to choose seat
-2. opened at specific time
-3. statistics
-4. recommend
-5. email notification
-
-### logic
-1. You can't choose the same seat every two month
-2. First come, first get
-4. If you choose area, the system will assign a seat for you randomly.
-
-### database design
-table seat
+### database design (mysql)
+general parameters (defined in db.js)
 1. id
-2. user_id
-3. seat
-4. area_id
-5. status
-6. lock_time
-7. lock_person
-8. month
+2. created_time
+3. updated_time
+4. version
 
-table area
-1. area_id
-2. area_name
-3. create_time
-4. change_time
+Other tables : defined in models folder.
 
-table user
-1. id
-2. name
-3. email
-4. create_time
-5. change_time
+The details of design : [Stefanie's blog](http://stefaniezhao.xyz/)
