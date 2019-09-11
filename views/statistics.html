@@ -12,8 +12,7 @@ var app = {};
 option = null;
 option = {
     title : {
-        text: '南丁格尔玫瑰图',
-        subtext: '纯属虚构',
+        text: 'Favorite seats',
         x:'center'
     },
     tooltip : {
@@ -23,7 +22,7 @@ option = {
     legend: {
         x : 'center',
         y : 'bottom',
-        data:['rose1','rose2','rose3','rose4','rose5','rose6','rose7','rose8']
+        data:['1a','1b','1c','1d','1f','1e','2a','2b']
     },
     toolbox: {
         show : true,
@@ -41,19 +40,18 @@ option = {
     calculable : true,
     series : [
         {
-            name:'面积模式',
             type:'pie',
             radius : [30, 110],
             roseType : 'area',
             data:[
-                {value:10, name:'rose1'},
-                {value:5, name:'rose2'},
-                {value:15, name:'rose3'},
-                {value:25, name:'rose4'},
-                {value:20, name:'rose5'},
-                {value:35, name:'rose6'},
-                {value:30, name:'rose7'},
-                {value:40, name:'rose8'}
+                {value:10, name:'1a'},
+                {value:5, name:'1b'},
+                {value:15, name:'1c'},
+                {value:25, name:'1d'},
+                {value:20, name:'1f'},
+                {value:35, name:'1e'},
+                {value:30, name:'2a'},
+                {value:40, name:'2b'}
             ]
         }
     ]

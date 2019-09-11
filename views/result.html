@@ -1,7 +1,7 @@
 {% extends "index.html" %} {% block main %}
 <div class="container">
     {% if name %}
-    <p>Your seat is {{seat_name}}</p>
+    <p>Your seat is {{ seat_name }}</p>
     {% else %}
     <form action="/result" method="GET">
         <div class="form-row">

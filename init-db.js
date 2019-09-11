@@ -1,22 +1,22 @@
 const model = require('./model.js');
 model.sync();
-let
-    area = model.area,
-    seat = model.seat,
-    user = model.user;
-(async () => {
-    await area.create({
-        areaId: 1,
-        area_name: 'Window',
-    });
-})();
+// let
+//     area = model.area,
+//     seat = model.seat,
+//     user = model.user;
+// (async () => {
+//     await area.create({
+//         areaId: 1,
+//         area_name: 'Window',
+//     });
+// })();
 
-(async () => {
-    await area.create({
-        areaId: 2,
-        area_name: 'Door',
-    });
-})();
+// (async () => {
+//     await area.create({
+//         areaId: 2,
+//         area_name: 'Door',
+//     });
+// })();
 
 // (async () => {
 //     await seat.create({

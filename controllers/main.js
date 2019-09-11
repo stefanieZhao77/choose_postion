@@ -1,49 +1,81 @@
 const model = require('../model');
-let 
+let
     area = model.area,
     seat = model.seat,
     statistics = model.statistics,
-    user = model.user;
+    user = model.user,
+    order = model.order;
 var query_list = async (ctx, next) => {
     var seats;
-    if(ctx.params.area && ctx.params.room){
-        seats = await seat.findAll(
-        {
+    if (ctx.params.area && ctx.params.room) {
+        seats = await seat.findAll({
             where: {
-                seatId : parseInt(ctx.params.room),
-                areaId : parseInt(ctx.params.area),
+                room: parseInt(ctx.params.room),
+                areaId: parseInt(ctx.params.area),
             }
         });
-    }else{
-        seats = await seat.findAll({
-            });
-    }; 
+    } else {
+        seats = await seat.findAll({});
+    };
     var areas = await area.findAll({
-        attributes:['area_name', 'areaId']
+        attributes: ['area_name', 'areaId']
     });
-     ctx.render('select.html', {
+    ctx.render('select.html', {
         title: 'Home',
-        button_state:'normal',
+        button_state: 'normal',
         areas: areas,
         seats: seats,
-        selected_area:ctx.params.area,
-        selected_room:ctx.params.room,
+        selected_area: ctx.params.area,
+        selected_room: ctx.params.room,
     });
 };
 
 var submit_choice = async (ctx, next) => {
+    var button_state;
+    var date = new Date;
+    var year = date.getFullYear();
+    var month = date.getMonth()+1;
+    var mydate = year.toString()+ month.toString();
+    await order.create({
+        user: ctx.request.body.name,
+        seat: ctx.request.body.seat,
+        date: mydate,
+    }).then(e => {
+        button_state='success';
+    })
     ctx.render('select.html', {
         title: 'Home',
-        button_state:'success',
+        button_state: button_state,
     });
 };
-var get_result = async(ctx, next) =>{
+var get_result = async (ctx, next) => {
+    var name, seat_name;
+    if (sessionStorage.getItem('name')) {
+        name = true;
+        seat_name = await order.findAll({
+            where: {
+                user: sessionStorage.getItem('name'),
+            }
+        });
+    } else {
+        name = false;
+        if (ctx.request.body.name) {
+            name = true;
+            seat_name = await order.findAll({
+                where: {
+                    user: sessionStorage.getItem('name'),
+                }
+            });
+        }
+    }
     ctx.render('result.html', {
         title: 'Result',
+        name: name,
+        seat_name: seat_name,
     });
 };
 
-var get_statistics =async(ctx, next) =>{
+var get_statistics = async (ctx, next) => {
     ctx.render('statistics.html', {
         title: 'Statistics',
     });
