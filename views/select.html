@@ -3,10 +3,6 @@
     <form action="/submit" method="post">
         <div class="form-row">
             <div class="form-group col-md-3">
-                <label for="inputname">Name</label>
-                <input type="text" class="form-control" name="name" id="name">
-            </div>
-            <div class="form-group col-md-3">
                 <label for="area">Room</label>
                 <select class="form-control" name="room" id="room">
                     {% if 1 == selected_room %}
@@ -14,14 +10,14 @@
                     <option value="2">2</option>
                     <option value="3">3</option>
                     {% elif 2 == selected_room%}
-                    <option value="1" >1</option>
+                    <option value="1">1</option>
                     <option value="2" selected>2</option>
                     <option value="3">3</option>
                     {% elif 3 == selected_room %}
-                    <option value="1" >1</option>
+                    <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3" selected>3</option>
-                    {% endif %}                   
+                    {% endif %}
                 </select>
             </div>
             <div class="form-group col-md-3">
@@ -39,10 +35,14 @@
             <div class="form-group col-md-3">
                 <label for="seat">Seat</label>
                 <select class="form-control" name="seat" id="seat">
-                    {% for seat in seats %}                     
+                    {% for seat in seats %}
                     <option value="{{seat.seat}}">{{ seat.seat }}</option>
                     {% endfor %}
                 </select>
+            </div>
+            <div class="form-group col-md-3">
+                <label for="inputname">Name</label>
+                <input type="text" class="form-control" name="name" id="name">
             </div>
         </div>
         {% if button_state == 'normal' %}
@@ -57,18 +57,17 @@
     </form>
 </div>
 <script>
-        let roomSelect = document.getElementById('room');
-        let areaSelect = document.getElementById('area');
-        roomSelect.addEventListener("change",function(e) {
-            let roomval = roomSelect.options[roomSelect.selectedIndex].value;
-            let areaval = areaSelect.options[areaSelect.selectedIndex].value;   
-            window.location.replace("/"+areaval+'/'+roomval);
-        });
-        areaSelect.addEventListener("change",function(e) {
-            let roomval = roomSelect.options[roomSelect.selectedIndex].value;
-            let areaval = areaSelect.options[areaSelect.selectedIndex].value;   
-            window.location.replace("/"+areaval+'/'+roomval);
-        });
-        
+    let roomSelect = document.getElementById('room');
+    let areaSelect = document.getElementById('area');
+    roomSelect.addEventListener("change", function (e) {
+        let roomval = roomSelect.options[roomSelect.selectedIndex].value;
+        let areaval = areaSelect.options[areaSelect.selectedIndex].value;
+        window.location.replace("/" + areaval + '/' + roomval);
+    });
+    areaSelect.addEventListener("change", function (e) {
+        let roomval = roomSelect.options[roomSelect.selectedIndex].value;
+        let areaval = areaSelect.options[areaSelect.selectedIndex].value;
+        window.location.replace("/" + areaval + '/' + roomval);
+    });
 </script>
 {% endblock %}

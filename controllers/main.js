@@ -31,23 +31,37 @@ var query_list = async (ctx, next) => {
 };
 
 var submit_choice = async (ctx, next) => {
-    ctx.cookies.set('name',ctx.request.body.name);
-    var button_state;
     var date = new Date;
     var year = date.getFullYear();
-    var month = date.getMonth()+1;
-    var mydate = year.toString()+ month.toString();
-    await order.create({
-        user: ctx.request.body.name,
-        seat: ctx.request.body.seat,
-        date: mydate,
-    }).then(e => {
-        button_state='success';
-    })
-    ctx.render('select.html', {
-        title: 'Home',
-        button_state: button_state,
-    });
+    var month = date.getMonth() + 1;
+    var day = date.getDate();
+    var mydate = year.toString() + month.toString();
+    date.setFullYear(year, month - 1, 1); //first day
+    let first_day = date.getDay() == 0 ? 7 : date.getDay();
+    date.setFullYear(year, month, 0); //length of this month
+    let length = date.getDate();
+    let first_tuesday = first_day == 2 ? 1 : (7 - first_day + 3);
+    let last_tuesday = first_tuesday + parseInt((length - first_tuesday) / 7) * 7;
+    if (day == last_tuesday) {
+        ctx.cookies.set('name', ctx.request.body.name);
+        var button_state;
+        await order.create({
+            user: ctx.request.body.name,
+            seat: ctx.request.body.seat,
+            date: mydate,
+        }).then(e => {
+            button_state = 'success';
+        })
+        ctx.render('select.html', {
+            title: 'Home',
+            button_state: button_state,
+        });
+    }else{
+        ctx.render('qrcode.html', {
+            title: 'Test',
+        });
+    }
+
 };
 var get_result = async (ctx, next) => {
     var name, seat_name;
