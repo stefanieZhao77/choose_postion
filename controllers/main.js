@@ -31,6 +31,7 @@ var query_list = async (ctx, next) => {
 };
 
 var submit_choice = async (ctx, next) => {
+    ctx.cookies.set('name',ctx.request.body.name);
     var button_state;
     var date = new Date;
     var year = date.getFullYear();
@@ -50,11 +51,11 @@ var submit_choice = async (ctx, next) => {
 };
 var get_result = async (ctx, next) => {
     var name, seat_name;
-    if (sessionStorage.getItem('name')) {
+    if (ctx.cookies.get('name')) {
         name = true;
         seat_name = await order.findAll({
             where: {
-                user: sessionStorage.getItem('name'),
+                user: ctx.cookies.get('name'),
             }
         });
     } else {
@@ -71,7 +72,7 @@ var get_result = async (ctx, next) => {
     ctx.render('result.html', {
         title: 'Result',
         name: name,
-        seat_name: seat_name,
+        seat_name: seat_name[0],
     });
 };
 

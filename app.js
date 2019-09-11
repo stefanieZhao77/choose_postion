@@ -6,6 +6,8 @@ const controller = require('./controller');
 
 const templating = require('./templating');
 
+const session = require('koa-session');
+
 const app = new Koa();
 
 const isProduction = process.env.NODE_ENV === 'production';
@@ -38,6 +40,8 @@ app.use(templating('views', {
 
 // add controller:
 app.use(controller());
+
+app.use(session(app));
 
 app.listen(3000);
 console.log('app started at port 3000...');
